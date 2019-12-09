@@ -1,7 +1,6 @@
 package censusanalyser;
 
 import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -18,13 +17,15 @@ public class CensusAnalyser {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IndiaCensusCSV> csvIterator = csvBuilder.getCSVFileIterator(reader, IndiaCensusCSV.class);
-            return  this.getCount(csvIterator);
+            return this.getCount(csvIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         } catch (IllegalStateException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
+        } catch (CSVBuilderException e) {
+            throw new CensusAnalyserException("", CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
 
@@ -38,7 +39,7 @@ public class CensusAnalyser {
         CsvToBean<IndiaStateCSVCode> csvToBean = null;
         try (Reader reader = Files.newBufferedReader(Paths.get(indiaCensusCsvFilePath));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<IndiaStateCSVCode> csvIterator =csvBuilder.getCSVFileIterator(reader, IndiaStateCSVCode.class);
+            Iterator<IndiaStateCSVCode> csvIterator = csvBuilder.getCSVFileIterator(reader, IndiaStateCSVCode.class);
             return this.getCount(csvIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
@@ -46,6 +47,8 @@ public class CensusAnalyser {
         } catch (IllegalStateException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
+        } catch (CSVBuilderException e) {
+            throw new CensusAnalyserException("", CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
 }
