@@ -12,17 +12,14 @@ import java.util.stream.StreamSupport;
 
 public class CensusAnalyser {
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
-        try {
-            Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
+        CsvToBean<IndiaCensusCSV> csvToBean = null;
+        try ( Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));){
+
             CsvToBeanBuilder<IndiaCensusCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
             csvToBeanBuilder.withType(IndiaCensusCSV.class);
             csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
-            CsvToBean<IndiaCensusCSV> csvToBean = csvToBeanBuilder.build();
-            Iterator<IndiaCensusCSV> csvIterator = csvToBean.iterator();
-            ;
-            Iterable<IndiaCensusCSV> censusCSVS = () -> csvIterator;
-            int namOfEateries = (int) StreamSupport.stream(censusCSVS.spliterator(), false).count();
-            return namOfEateries;
+            csvToBean = csvToBeanBuilder.build();
+
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
@@ -30,6 +27,11 @@ public class CensusAnalyser {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
         }
+        Iterator<IndiaCensusCSV> csvIterator = csvToBean.iterator();
+
+        Iterable<IndiaCensusCSV> censusCSVS = () -> csvIterator;
+        int namOfEateries = (int) StreamSupport.stream(censusCSVS.spliterator(), false).count();
+        return namOfEateries;
 
     }
 }
