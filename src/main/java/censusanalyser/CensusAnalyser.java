@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.stream.StreamSupport;
 
 public class CensusAnalyser {
+
     private <E> Iterator<E> getCSVFileIterator(Reader reader, Class csvClass) {
         CsvToBean<E> csvToBean = null;
         CsvToBeanBuilder<IndiaCensusCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
@@ -23,8 +24,8 @@ public class CensusAnalyser {
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
         CsvToBean<IndiaCensusCSV> csvToBean = null;
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
-            Iterator<IndiaCensusCSV> csvIterator = getCSVFileIterator(reader, IndiaCensusCSV.class);
-            return this.getCount(csvIterator);
+            Iterator<IndiaCensusCSV> csvIterator = new OpenCSVBuilder().getCSVFileIterator(reader, IndiaCensusCSV.class);
+            return  this.getCount(csvIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
@@ -32,7 +33,6 @@ public class CensusAnalyser {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
         }
-
     }
 
     private <E> int getCount(Iterator<E> iterator) {
@@ -44,7 +44,7 @@ public class CensusAnalyser {
     public int loadIndiaStateCodeData(String indiaCensusCsvFilePath) throws CensusAnalyserException {
         CsvToBean<IndiaStateCSVCode> csvToBean = null;
         try (Reader reader = Files.newBufferedReader(Paths.get(indiaCensusCsvFilePath));) {
-            Iterator<IndiaStateCSVCode> csvIterator = getCSVFileIterator(reader, IndiaStateCSVCode.class);
+            Iterator<IndiaStateCSVCode> csvIterator = new OpenCSVBuilder().getCSVFileIterator(reader, IndiaStateCSVCode.class);
             return this.getCount(csvIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
