@@ -49,8 +49,14 @@ public class CensusAnalyserTest {
     @Test
     public void givenStateCensusData_WhenSorted_ShouldReturn_SortedResult() {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
-        String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
-        IndiaCensusCSV[] indiaCensusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
-        Assert.assertEquals("Andhra Pradesh", indiaCensusCSV[0].state);
+        String sortedCensusData = null;
+        try {
+            sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            IndiaCensusCSV[] indiaCensusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
+            Assert.assertEquals("Andhra Pradesh", indiaCensusCSV[0].state);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+
     }
 }
