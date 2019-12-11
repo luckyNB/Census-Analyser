@@ -6,10 +6,10 @@ public class IndiaStateCSVCode {
 
 
     @CsvBindByName(column = "StateName")
-    private String StateName;
+    public String StateName;
 
     @CsvBindByName(column = "StateCode" )
-    private String StateCode;
+    public String StateCode;
 
     @Override
     public String toString() {
