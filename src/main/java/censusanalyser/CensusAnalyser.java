@@ -16,9 +16,16 @@ import java.util.stream.StreamSupport;
 
 public class CensusAnalyser {
     Map<String, IndiaCensusDAO> censusCSVMap = null;
+    Comparator<IndiaCensusDAO> censusCSVComparator = null;
+    Map<FieldName, Comparator> comparatorMap = null;
 
     public CensusAnalyser() {
         this.censusCSVMap = new HashMap<String, IndiaCensusDAO>();
+        comparatorMap = new HashMap<>();
+        comparatorMap.put(FieldName.POULATION, censusCSVComparator = Comparator.comparing(indiaCensusCSV -> indiaCensusCSV.population));
+        comparatorMap.put(FieldName.AREA, censusCSVComparator = Comparator.comparing(indiaCensusCSV -> indiaCensusCSV.areaInSqKm));
+        comparatorMap.put(FieldName.STATE, censusCSVComparator = Comparator.comparing(indiaCensusCSV -> indiaCensusCSV.state));
+        comparatorMap.put(FieldName.DENSITY, censusCSVComparator = Comparator.comparing(indiaCensusCSV -> indiaCensusCSV.densityPerSqKm));
     }
 
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
@@ -66,12 +73,10 @@ public class CensusAnalyser {
         }
     }
 
-    public String getStateWiseSortedCensusData() throws CSVBuilderException, CensusAnalyserException {
+    public String getStateWiseSortedCensusData(FieldName fieldName) throws CSVBuilderException, CensusAnalyserException {
         try {
             List<IndiaCensusDAO> indiaCensusDAOList = censusCSVMap.values().stream().collect(Collectors.toList());
-            censusCSVMap.size();
-            Comparator<IndiaCensusDAO> censusCSVComparator = Comparator.comparing(indiaCensusCSV -> indiaCensusCSV.state);
-
+            censusCSVComparator = comparatorMap.get(fieldName);
             this.sort(censusCSVComparator, indiaCensusDAOList);
             String sorted = new Gson().toJson(indiaCensusDAOList);
             return sorted;
@@ -79,6 +84,7 @@ public class CensusAnalyser {
             throw new CensusAnalyserException("", CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
+
 
     private void sort(Comparator<IndiaCensusDAO> censusCSVComparator, List<IndiaCensusDAO> list) throws CSVBuilderException {
         for (int i = 0; i < list.size(); i++) {
