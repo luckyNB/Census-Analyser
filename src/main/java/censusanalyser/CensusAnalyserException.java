@@ -1,11 +1,6 @@
 package censusanalyser;
 
 public class CensusAnalyserException extends Exception {
-
-    enum ExceptionType {
-        CENSUS_FILE_PROBLEM,UNABLE_TO_PARSE,NO_CENSUS_DATA
-    }
-
     ExceptionType type;
 
     public CensusAnalyserException(String message, ExceptionType type) {
@@ -16,5 +11,9 @@ public class CensusAnalyserException extends Exception {
     public CensusAnalyserException(String message, ExceptionType type, Throwable cause) {
         super(message, cause);
         this.type = type;
+    }
+
+    enum ExceptionType {
+        CENSUS_FILE_PROBLEM, UNABLE_TO_PARSE, NO_CENSUS_DATA,WRONG_DELIMETER_OR_HEADER
     }
 }
