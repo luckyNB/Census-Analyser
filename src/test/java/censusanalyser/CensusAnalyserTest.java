@@ -98,4 +98,23 @@ public class CensusAnalyserTest {
         }
     }
 
+    @Test
+    public void givenStateCensusData_WhenSorted_ShouldReturn_Sorted_Then_WestBengal_As_LastState() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        String sortedCensusData = null;
+        try {
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            censusAnalyser.loadIndiaStateCodeData(INDIA_STATTE_CODE_CSV_FILE_PATH);
+
+            sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(FieldName.STATE);
+            IndiaCensusCSV[] indiaCensusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
+            Assert.assertEquals("West Bengal", indiaCensusCSV[indiaCensusCSV.length-1].state.trim());
+        } catch (CensusAnalyserException | CSVBuilderException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 }
