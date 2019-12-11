@@ -88,8 +88,6 @@ public class CensusAnalyserTest {
         String sortedCensusData = null;
         try {
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
-            censusAnalyser.loadIndiaStateCodeData(INDIA_STATTE_CODE_CSV_FILE_PATH);
-
             sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(FieldName.STATE);
             IndiaCensusCSV[] indiaCensusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
             Assert.assertEquals("Andhra Pradesh", indiaCensusCSV[0].state.trim());
@@ -104,17 +102,44 @@ public class CensusAnalyserTest {
         String sortedCensusData = null;
         try {
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
-            censusAnalyser.loadIndiaStateCodeData(INDIA_STATTE_CODE_CSV_FILE_PATH);
-
             sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(FieldName.STATE);
             IndiaCensusCSV[] indiaCensusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
-            Assert.assertEquals("West Bengal", indiaCensusCSV[indiaCensusCSV.length-1].state.trim());
+            Assert.assertEquals("West Bengal", indiaCensusCSV[indiaCensusCSV.length - 1].state.trim());
         } catch (CensusAnalyserException | CSVBuilderException e) {
             e.printStackTrace();
         }
     }
 
 
+    @Test
+    public void givenStateCensusCSVData_WhenSortedByPopulation_Then_Sikkim_ShouldBeFirstState() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        String sortedCensusData = null;
+        try {
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(FieldName.POULATION);
+            IndiaCensusCSV[] indiaCensusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
+            Assert.assertEquals("Sikkim", indiaCensusCSV[0].state.trim());
+        } catch (CSVBuilderException e) {
+            e.printStackTrace();
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 
-
+    @Test
+    public void givenStateCensusCSVData_WhenSortedByPopulation_Then_UttarPradesh_ShouldBeLastState() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        String sortedCensusData = null;
+        try {
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(FieldName.POULATION);
+            IndiaCensusCSV[] indiaCensusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
+            Assert.assertEquals("Uttar Pradesh", indiaCensusCSV[indiaCensusCSV.length-1].state.trim());
+        } catch (CSVBuilderException e) {
+            e.printStackTrace();
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
