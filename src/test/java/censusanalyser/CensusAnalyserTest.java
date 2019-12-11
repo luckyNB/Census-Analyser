@@ -46,6 +46,16 @@ private  static final String INDIA_CENSUS_WRONG_FILE_TYPE="/home/admin1/Download
     }
 
     @Test
+    public void givenWrongIndianCSVFileType_WhenIncorrect_Should_ThrowCensusAnalyserException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_WRONG_FILE_TYPE);
+            Assert.assertEquals(29, numOfRecords);
+        } catch (CensusAnalyserException e) {
+        }
+    }
+
+    @Test
     public void givenIndianCensusData_WhenWrongFile_Should_ThrowCensusAnalyserException() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();

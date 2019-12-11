@@ -37,9 +37,8 @@ public class CensusAnalyser {
                     "", CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
         } catch (CSVBuilderException e) {
             throw new CensusAnalyserException("", CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        }
-        catch (RuntimeException e){
-            throw  new CensusAnalyserException("",CensusAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER);
+        } catch (RuntimeException e) {
+            throw new CensusAnalyserException("", CensusAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER);
         }
     }
 
@@ -90,7 +89,6 @@ public class CensusAnalyser {
                     list.set(j, censusCSV2);
                     list.set(j + 1, censusCSV1);
                 }
-
             }
         }
     }
