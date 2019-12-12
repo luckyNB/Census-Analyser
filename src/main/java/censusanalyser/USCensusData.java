@@ -11,7 +11,7 @@ public class USCensusData {
     @CsvBindByName(column = "Population")
     public int population;
 
-    @CsvBindByName(column = "StateCode")
+    @CsvBindByName(column = "State Id")
     public String stateCode;
 
     @CsvBindByName(column = "Total area")
