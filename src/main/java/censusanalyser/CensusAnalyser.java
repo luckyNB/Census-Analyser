@@ -1,5 +1,6 @@
 package censusanalyser;
 
+import CensusLoader.CensusLoader;
 import com.bridgelabz.CSVBuilderException;
 import com.bridgelabz.CSVBuilderFactory;
 import com.bridgelabz.ICSVBuilder;
@@ -30,7 +31,7 @@ public class CensusAnalyser {
 
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
 
-        return loadCensusData(csvFilePath, IndiaCensusCSV.class);
+        return  new CensusLoader().loadCensusData(csvFilePath, IndiaCensusCSV.class);
     }
 
     public int loadIndiaStateCodeData(String indiaCensusCsvFilePath) throws CensusAnalyserException {
@@ -78,7 +79,7 @@ public class CensusAnalyser {
     }
 
     public int loadUSCensusData(String usCensusDataFile) throws CensusAnalyserException {
-        return loadCensusData(usCensusDataFile, USCensusData.class);
+        return new CensusLoader().loadCensusData(usCensusDataFile, USCensusData.class);
 
     }
 
