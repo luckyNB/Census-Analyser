@@ -39,7 +39,7 @@ public class CensusAnalyser {
         } catch (IOException e) {
             throw new CensusAnalyserException(
                     "", CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        }  catch (CSVBuilderException e) {
+        } catch (CSVBuilderException e) {
             throw new CensusAnalyserException("", CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         } catch (RuntimeException e) {
             throw new CensusAnalyserException("", CensusAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER);
@@ -51,13 +51,10 @@ public class CensusAnalyser {
         try (Reader reader = Files.newBufferedReader(Paths.get(indiaCensusCsvFilePath));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IndiaStateCSVCode> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IndiaStateCSVCode.class);
-            while (csvFileIterator.hasNext()) {
-                IndiaStateCSVCode indiaStateCSVCode = csvFileIterator.next();
-                IndiaCensusDAO censusDAO = censusCSVMap.get(indiaStateCSVCode.StateCode);
-                if (censusDAO == null)
-                    continue;
-                censusDAO.state = indiaStateCSVCode.StateCode;
-            }
+            Iterable<IndiaStateCSVCode> indiaStateCSVCodeIterable = () -> csvFileIterator;
+            StreamSupport.stream(indiaStateCSVCodeIterable.spliterator(), false)
+                    .filter(csvState -> censusCSVMap.get(csvState.StateCode) != null)
+                    .forEach(csvState -> censusCSVMap.get(csvState.StateName).stateCode = csvState.StateCode);
             return censusCSVMap.size();
         } catch (IOException e) {
             throw new CensusAnalyserException(
@@ -67,7 +64,7 @@ public class CensusAnalyser {
         }
     }
 
-    public String getStateWiseSortedCensusData(FieldName fieldName) throws CSVBuilderException, CensusAnalyserException {
+    public String getStateWiseSortedCensusData(FieldName fieldName) throws CensusAnalyserException {
         try {
             List<IndiaCensusDAO> indiaCensusDAOList = censusCSVMap.values().stream().collect(Collectors.toList());
             censusCSVComparator = comparatorMap.get(fieldName);
@@ -78,7 +75,6 @@ public class CensusAnalyser {
             throw new CensusAnalyserException("", CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
-
 
     private void sort(Comparator<IndiaCensusDAO> censusCSVComparator, List<IndiaCensusDAO> list) throws CSVBuilderException {
         for (int i = 0; i < list.size(); i++) {
