@@ -2,8 +2,8 @@ package censusanalyser;
 
 public class IndiaCensusDAO {
     public int population;
-    public Double densityPerSqKm;
-    public Double areaInSqKm;
+    public int densityPerSqKm;
+    public int areaInSqKm;
     public String state;
     public String stateCode;
 
@@ -16,13 +16,7 @@ public class IndiaCensusDAO {
 
     }
 
-    public IndiaCensusDAO(USCensusData usCensusData) {
-        this.state = usCensusData.state;
-        this.stateCode = usCensusData.stateCode;
-        this.population = usCensusData.population;
-        densityPerSqKm=usCensusData.populationDensity;
-        this.areaInSqKm=usCensusData.totalArea;
-    }
+
 
 
     public IndiaCensusCSV getIndiaCensusCSV(){
