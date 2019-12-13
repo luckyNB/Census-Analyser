@@ -103,6 +103,7 @@ public class CensusAnalyserTest {
             e.printStackTrace();
         }
     }
+
     @Test
     public void givenStateCensusCSVData_WhenSortedByPopulation_ThenUttarPradesh_ShouldBe_LastState() {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
@@ -110,13 +111,39 @@ public class CensusAnalyserTest {
             censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA, INDIA_CENSUS_CSV_FILE_PATH);
             String result = censusAnalyser.getSortedData(FieldName.POULATION);
             IndiaCensusCSV[] indiaCensusCSVS = new Gson().fromJson(result, IndiaCensusCSV[].class);
-            Assert.assertEquals("Uttar Pradesh", indiaCensusCSVS[indiaCensusCSVS.length-1].state.trim());
+            Assert.assertEquals("Uttar Pradesh", indiaCensusCSVS[indiaCensusCSVS.length - 1].state.trim());
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
     }
 
+    @Test
+    public void givenStateCensusCSVData_WhenSortedByDensity_ThenArunachal_Pradesh_ShouldBe_FirstState() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA, INDIA_CENSUS_CSV_FILE_PATH);
+            String sortedData = censusAnalyser.getSortedData(FieldName.DENSITY);
+            IndiaCensusCSV[] indiaCensusCSVS=new Gson().fromJson(sortedData,IndiaCensusCSV[].class);
+            Assert.assertEquals("Arunachal Pradesh",indiaCensusCSVS[0].state.trim());
 
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenStateCensusCSVData_WhenSortedByDensity_ThenBihar_ShouldBe_LastState() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA, INDIA_CENSUS_CSV_FILE_PATH);
+            String sortedData = censusAnalyser.getSortedData(FieldName.DENSITY);
+            IndiaCensusCSV[] indiaCensusCSVS=new Gson().fromJson(sortedData,IndiaCensusCSV[].class);
+            Assert.assertEquals("Bihar",indiaCensusCSVS[indiaCensusCSVS.length-1].state.trim());
+
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
