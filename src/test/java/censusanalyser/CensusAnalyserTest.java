@@ -185,6 +185,30 @@ public class CensusAnalyserTest {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER, e.type);
         }
     }
+    @Test
+    public void givenUSCensusData_WhenSortedByStateName_ThenAlabama_ShouldFirstState() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
+            String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.STATE, CensusAnalyser.Country.USA);
+            USCensusData[] usCensusData=new Gson().fromJson(sortedDataIndiaCensusCSV,USCensusData[].class);
+            Assert.assertEquals("Alabama",usCensusData[0].state.trim());
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenUSCensusData_WhenSortedByStateName_ThenWyoming_ShouldLastState() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
+            String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.STATE, CensusAnalyser.Country.USA);
+            USCensusData[] usCensusData=new Gson().fromJson(sortedDataIndiaCensusCSV,USCensusData[].class);
+            Assert.assertEquals("Alabama",usCensusData[0].state.trim());
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
