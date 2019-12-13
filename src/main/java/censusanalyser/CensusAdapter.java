@@ -31,8 +31,7 @@ public abstract class CensusAdapter {
                             (csvIterable.spliterator(), false)
                             .map(IndiaCensusCSV.class::cast)
                             .forEach(censusCSV -> censusMap.put(censusCSV.state, new CensusDAO(censusCSV)));
-                }
-                else if(censusCSVClass.getName().equals("censusanalyser.USCensusData")){
+                } else if (censusCSVClass.getName().equals("censusanalyser.USCensusData")) {
                     StreamSupport.stream
                             (csvIterable.spliterator(), false)
                             .map(USCensusData.class::cast)
@@ -43,8 +42,6 @@ public abstract class CensusAdapter {
             } catch (CSVBuilderException e) {
                 e.printStackTrace();
             }
-
-
             return censusMap;
         } catch (CensusAnalyserException e) {
             throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
