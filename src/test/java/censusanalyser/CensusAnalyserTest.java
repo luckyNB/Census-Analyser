@@ -204,11 +204,38 @@ public class CensusAnalyserTest {
             censusAnalyser.loadCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
             String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.STATE, CensusAnalyser.Country.USA);
             USCensusData[] usCensusData=new Gson().fromJson(sortedDataIndiaCensusCSV,USCensusData[].class);
-            Assert.assertEquals("Alabama",usCensusData[0].state.trim());
+            Assert.assertEquals("Wyoming",usCensusData[usCensusData.length-1].state.trim());
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
     }
+
+
+    @Test
+    public void givenUSCensusData_WhenSortedByPopulation_ThenWyoming_ShouldFirstState() {
+        CensusAnalyser censusAnalyser=new CensusAnalyser();
+        try {
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA,US_CENSUS_DATA);
+            String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.POULATION, CensusAnalyser.Country.USA);
+            USCensusData[] usCensusData=new Gson().fromJson(sortedDataIndiaCensusCSV,USCensusData[].class);
+            Assert.assertEquals("Wyoming",usCensusData[0].state.trim());
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenUSCensusData_WhenSortedByPopulation_ThenCalifornia_ShouldLastState() {
+        CensusAnalyser censusAnalyser=new CensusAnalyser();
+        try {
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA,US_CENSUS_DATA);
+            String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.POULATION, CensusAnalyser.Country.USA);
+            USCensusData[] usCensusData=new Gson().fromJson(sortedDataIndiaCensusCSV,USCensusData[].class);
+            Assert.assertEquals("California",usCensusData[usCensusData.length-1].state.trim());
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
 
