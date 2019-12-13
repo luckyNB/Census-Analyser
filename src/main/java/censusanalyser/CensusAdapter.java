@@ -37,19 +37,16 @@ public abstract class CensusAdapter {
                             .map(USCensusData.class::cast)
                             .forEach(censusCSV -> censusMap.put(censusCSV.state, new CensusDAO(censusCSV)));
                 }
-            } catch (RuntimeException e) {
-                throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
             } catch (CSVBuilderException e) {
-                e.printStackTrace();
+                throw new CensusAnalyserException("Error in CSV file Binding", CensusAnalyserException.ExceptionType.CSV_BIND_ERROR);
             }
-            return censusMap;
-        } catch (CensusAnalyserException e) {
-            throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
-        } catch (IOException e) {
-            throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+
         } catch (RuntimeException e) {
-            throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER);
+            throw new CensusAnalyserException("Error in format delimter or header wrong", CensusAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER);
+        } catch (IOException e) {
+            throw new CensusAnalyserException("Error while reading file", CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
+        return censusMap;
     }
 
 
