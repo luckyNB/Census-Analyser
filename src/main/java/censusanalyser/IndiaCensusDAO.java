@@ -19,7 +19,7 @@ public class IndiaCensusDAO {
 
 
 
-    public IndiaCensusCSV getIndiaCensusCSV(){
+    public IndiaCensusCSV getIndiaCensusDTO(){
         return new IndiaCensusCSV(state,population,densityPerSqKm,areaInSqKm);
     }
 }

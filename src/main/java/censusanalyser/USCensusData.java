@@ -15,7 +15,12 @@ public class USCensusData {
     @CsvBindByName(column = "Population Density")
     public double populationDensity;
 
-
+    public USCensusData(String state, int population, double densityPerSqKm, double areaInSqKm) {
+        this.state = state;
+        this.population = population;
+        this.populationDensity = densityPerSqKm;
+        this.totalArea = areaInSqKm;
+    }
 }
 
 

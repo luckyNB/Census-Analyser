@@ -1,5 +1,6 @@
 package censusanalyser;
 
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -51,32 +52,35 @@ public class CensusAnalyserTest {
         }
     }
 
-
     @Test
-    public void givenIndianStateCensusData_WhenWrongFileExtension_ThenShould_Throw_CensusAnalyserException() {
-        IndiaCensusAdapter indiaCensusAdapter = (IndiaCensusAdapter) AdapterFactory.getAdapterObject(CensusAnalyser.Country.INDIA);
+    public void givenUSCensusData_WhenCorrect_Should_ReturnValidNumberOfRecords() {
+
+        USCensusAdapter usCensusAdapter = AdapterFactory.getAdapterObject(CensusAnalyser.Country.USA);
         try {
-
-            Map<String, CensusDAO> result = indiaCensusAdapter.loadingCensusData(CensusAnalyser.Country.INDIA, INDIA_CENSUS_WRONG_FILE_TYPE);
-            Assert.assertEquals(29, result.size());
+            Map<String, CensusDAO> result = usCensusAdapter.loadingCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
+            Assert.assertEquals(51, result.size());
         } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
-            e.printStackTrace();
-        }
-    }
 
-    @Test
-    public void givenUSCensusData_WhenCorrect_Should_ReturnValidNumberOfRecords(){
-
-        USCensusAdapter usCensusAdapter=AdapterFactory.getAdapterObject(CensusAnalyser.Country.USA);
-        try {
-           Map<String,CensusDAO> result= usCensusAdapter.loadingCensusData(CensusAnalyser.Country.USA,US_CENSUS_DATA);
-            Assert.assertEquals(51,result.size());
-        } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
 
     }
+
+    @Test
+    public void givenStateCensusCSVData_WhenSorted_Then_AndhraPradesh_ShouldBe_FirstState() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA, INDIA_CENSUS_CSV_FILE_PATH);
+            String result = censusAnalyser.getSortedData(FieldName.STATE);
+            IndiaCensusCSV[] indiaCensusCSVS = new Gson().fromJson(result, IndiaCensusCSV[].class);
+            Assert.assertEquals("Andhra Pradesh", indiaCensusCSVS[0].state.trim());
+
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 
 

@@ -2,7 +2,7 @@ package censusanalyser;
 
 public class CensusDAO {
     public String state;
-    public String stateCode=null;
+    public String stateCode = null;
     public double areaInSqKm;
     public double densityPerSqKm;
     public int population;
@@ -22,8 +22,14 @@ public class CensusDAO {
         areaInSqKm = usCensusCsv.totalArea;
     }
 
-    public IndiaCensusCSV getIndiaCensusCSV(){
-        return new IndiaCensusCSV(state,population,(int)densityPerSqKm,(int)areaInSqKm);
+    public IndiaCensusCSV getIndiaCensusCSV() {
+        return new IndiaCensusCSV(state, population, (int) densityPerSqKm, (int) areaInSqKm);
+    }
+
+    public Object getCensusDTO(CensusAnalyser.Country country) {
+        if (country.equals(CensusAnalyser.Country.USA))
+            return new USCensusData(state, population, densityPerSqKm, areaInSqKm);
+        return new IndiaCensusCSV(state, population, (int) densityPerSqKm, (int) areaInSqKm);
     }
 }
 

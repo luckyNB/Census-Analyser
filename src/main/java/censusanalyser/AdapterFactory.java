@@ -13,4 +13,6 @@ public class AdapterFactory {
 
         return null;
     }
+
+
 }
