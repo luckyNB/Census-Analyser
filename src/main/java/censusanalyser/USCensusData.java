@@ -21,6 +21,9 @@ public class USCensusData {
         this.populationDensity = densityPerSqKm;
         this.totalArea = areaInSqKm;
     }
+
+    public USCensusData() {
+    }
 }
 
 
