@@ -291,16 +291,28 @@ public class CensusAnalyserTest {
         }
     }
 
-
     @Test
-    public void givenIndianCensusData_SortedByPopulationAndDensity() {
-
+    public void givenIndianCensusData_SortedByPopulationAndDensity_Should_ReturnSortedListOfStateOfIndia() {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
         try {
             censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA, INDIA_CENSUS_CSV_FILE_PATH);
             String list = censusAnalyser.sortList();
             IndiaCensusCSV[] indiaCensusCSVS = new Gson().fromJson(list, IndiaCensusCSV[].class);
             Assert.assertEquals("Tamil Nadu", indiaCensusCSVS[0].state.trim());
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void givenUSCensusData_SortedByPopulationAndDensity_ShouldReturnReturnSortedListOfStateOfUS() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
+            String list = censusAnalyser.sortList();
+            USCensusData[] usCensusData = new Gson().fromJson(list, USCensusData[].class);
+            Assert.assertEquals("Rhode Island",usCensusData[0].state.trim());
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
