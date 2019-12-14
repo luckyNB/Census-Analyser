@@ -185,26 +185,28 @@ public class CensusAnalyserTest {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER, e.type);
         }
     }
+
     @Test
     public void givenUSCensusData_WhenSortedByStateName_ThenAlabama_ShouldFirstState() {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
         try {
             censusAnalyser.loadCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
             String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.STATE, CensusAnalyser.Country.USA);
-            USCensusData[] usCensusData=new Gson().fromJson(sortedDataIndiaCensusCSV,USCensusData[].class);
-            Assert.assertEquals("Alabama",usCensusData[0].state.trim());
+            USCensusData[] usCensusData = new Gson().fromJson(sortedDataIndiaCensusCSV, USCensusData[].class);
+            Assert.assertEquals("Alabama", usCensusData[0].state.trim());
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
     }
+
     @Test
     public void givenUSCensusData_WhenSortedByStateName_ThenWyoming_ShouldLastState() {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
         try {
             censusAnalyser.loadCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
             String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.STATE, CensusAnalyser.Country.USA);
-            USCensusData[] usCensusData=new Gson().fromJson(sortedDataIndiaCensusCSV,USCensusData[].class);
-            Assert.assertEquals("Wyoming",usCensusData[usCensusData.length-1].state.trim());
+            USCensusData[] usCensusData = new Gson().fromJson(sortedDataIndiaCensusCSV, USCensusData[].class);
+            Assert.assertEquals("Wyoming", usCensusData[usCensusData.length - 1].state.trim());
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
@@ -213,24 +215,25 @@ public class CensusAnalyserTest {
 
     @Test
     public void givenUSCensusData_WhenSortedByPopulation_ThenWyoming_ShouldFirstState() {
-        CensusAnalyser censusAnalyser=new CensusAnalyser();
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
         try {
-            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA,US_CENSUS_DATA);
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
             String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.POULATION, CensusAnalyser.Country.USA);
-            USCensusData[] usCensusData=new Gson().fromJson(sortedDataIndiaCensusCSV,USCensusData[].class);
-            Assert.assertEquals("Wyoming",usCensusData[0].state.trim());
+            USCensusData[] usCensusData = new Gson().fromJson(sortedDataIndiaCensusCSV, USCensusData[].class);
+            Assert.assertEquals("Wyoming", usCensusData[0].state.trim());
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
     }
+
     @Test
     public void givenUSCensusData_WhenSortedByPopulation_ThenCalifornia_ShouldLastState() {
-        CensusAnalyser censusAnalyser=new CensusAnalyser();
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
         try {
-            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA,US_CENSUS_DATA);
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
             String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.POULATION, CensusAnalyser.Country.USA);
-            USCensusData[] usCensusData=new Gson().fromJson(sortedDataIndiaCensusCSV,USCensusData[].class);
-            Assert.assertEquals("California",usCensusData[usCensusData.length-1].state.trim());
+            USCensusData[] usCensusData = new Gson().fromJson(sortedDataIndiaCensusCSV, USCensusData[].class);
+            Assert.assertEquals("California", usCensusData[usCensusData.length - 1].state.trim());
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
@@ -238,24 +241,66 @@ public class CensusAnalyserTest {
 
     @Test
     public void givenUSCensusData_WhenSortedByDensity_ThenAlaska_ShouldBeFirstState() {
-        CensusAnalyser censusAnalyser=new CensusAnalyser();
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
         try {
-            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA,US_CENSUS_DATA);
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
             String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.DENSITY, CensusAnalyser.Country.USA);
-            USCensusData[] usCensusData=new Gson().fromJson(sortedDataIndiaCensusCSV,USCensusData[].class);
-            Assert.assertEquals("Alaska",usCensusData[0].state.trim());
+            USCensusData[] usCensusData = new Gson().fromJson(sortedDataIndiaCensusCSV, USCensusData[].class);
+            Assert.assertEquals("Alaska", usCensusData[0].state.trim());
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
     }
+
     @Test
     public void givenUSCensusData_WhenSortedByDensity_ThenDistrict_of_Columbia_ShouldBeLastState() {
-        CensusAnalyser censusAnalyser=new CensusAnalyser();
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
         try {
-            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA,US_CENSUS_DATA);
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
             String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.DENSITY, CensusAnalyser.Country.USA);
-            USCensusData[] usCensusData=new Gson().fromJson(sortedDataIndiaCensusCSV,USCensusData[].class);
-            Assert.assertEquals("District of Columbia",usCensusData[usCensusData.length-1].state.trim());
+            USCensusData[] usCensusData = new Gson().fromJson(sortedDataIndiaCensusCSV, USCensusData[].class);
+            Assert.assertEquals("District of Columbia", usCensusData[usCensusData.length - 1].state.trim());
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenUSCensusData_WhenSortedByArea_Then_Alaska_ShouldBeLastState() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
+            String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.AREA, CensusAnalyser.Country.USA);
+            USCensusData[] usCensusData = new Gson().fromJson(sortedDataIndiaCensusCSV, USCensusData[].class);
+            Assert.assertEquals("Alaska", usCensusData[usCensusData.length - 1].state.trim());
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenUSCensusData_WhenSortedByArea_Then_District_of_Columbia_ShouldBeFirstState() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.USA, US_CENSUS_DATA);
+            String sortedDataIndiaCensusCSV = censusAnalyser.getSortedCensusCSV(FieldName.AREA, CensusAnalyser.Country.USA);
+            USCensusData[] usCensusData = new Gson().fromJson(sortedDataIndiaCensusCSV, USCensusData[].class);
+            Assert.assertEquals("District of Columbia", usCensusData[0].state.trim());
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void givenIndianCensusData_SortedByPopulationAndDensity() {
+
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            censusAnalyser.loadCensusData(CensusAnalyser.Country.INDIA, INDIA_CENSUS_CSV_FILE_PATH);
+            String list = censusAnalyser.sortList();
+            IndiaCensusCSV[] indiaCensusCSVS = new Gson().fromJson(list, IndiaCensusCSV[].class);
+            Assert.assertEquals("Tamil Nadu", indiaCensusCSVS[0].state.trim());
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
