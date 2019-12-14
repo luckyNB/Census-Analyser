@@ -40,7 +40,6 @@ public abstract class CensusAdapter {
             } catch (CSVBuilderException e) {
                 throw new CensusAnalyserException("Error in CSV file Binding", CensusAnalyserException.ExceptionType.CSV_BIND_ERROR);
             }
-
         } catch (RuntimeException e) {
             throw new CensusAnalyserException("Error in format delimter or header wrong", CensusAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER);
         } catch (IOException e) {
@@ -48,6 +47,4 @@ public abstract class CensusAdapter {
         }
         return censusMap;
     }
-
-
 }

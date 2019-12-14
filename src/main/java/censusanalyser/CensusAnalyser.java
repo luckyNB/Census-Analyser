@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -43,16 +44,12 @@ public class CensusAnalyser {
         return sortedStateCensusJson;
     }
 
-
     public String sortList() {
         List<CensusDAO> list = (ArrayList) censusMap.values().stream().collect(Collectors.toList());
-//Compare by population and then density
-        Comparator<CensusDAO> compareByFields = Comparator
-                .comparing(CensusDAO::getPopulation).reversed()
-                .thenComparing(CensusDAO::getDensityPerSqKm).reversed();
-        List<CensusDAO> sortedEmployees = list.stream()
-                .sorted(compareByFields)
-                .collect(Collectors.toList());
+        Comparator<CensusDAO> comparator = Comparator.comparing(censusDAO -> censusDAO.population);
+        comparator.reversed().thenComparing(Comparator.comparing(censusDAO -> censusDAO.densityPerSqKm));
+        comparator.reversed();
+        Stream<CensusDAO> daoStream = list.stream().sorted(comparator);
         String sortedStateCensusJson = new Gson().toJson(list);
         return sortedStateCensusJson;
     }
@@ -61,5 +58,3 @@ public class CensusAnalyser {
         INDIA, USA
     }
 }
-
-

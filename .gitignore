@@ -1,5 +1,6 @@
-.class
-.graddle
-.bat
-.jar
-.class
+*.class
+*.gradle
+*.bat
+*.jar
+gradlew
+*.bat
