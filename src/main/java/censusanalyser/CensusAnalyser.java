@@ -2,11 +2,9 @@ package censusanalyser;
 
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -26,7 +24,7 @@ public class CensusAnalyser {
 
     public Map<String, CensusDAO> loadCensusData(Country country, String... csvFilePath) throws CensusAnalyserException {
         CensusAdapter censusAdapter = AdapterFactory.getAdapterObject(country);
-        censusMap = censusAdapter.loadCensusData(IndiaCensusCSV.class, csvFilePath[0]);
+        censusMap = censusAdapter.loadingCensusData(csvFilePath);
 
         return censusMap;
     }
@@ -45,6 +43,19 @@ public class CensusAnalyser {
         return sortedStateCensusJson;
     }
 
+
+    public String sortList() {
+        List<CensusDAO> list = (ArrayList) censusMap.values().stream().collect(Collectors.toList());
+//Compare by population and then density
+        Comparator<CensusDAO> compareByFields = Comparator
+                .comparing(CensusDAO::getPopulation).reversed()
+                .thenComparing(CensusDAO::getDensityPerSqKm).reversed();
+        List<CensusDAO> sortedEmployees = list.stream()
+                .sorted(compareByFields)
+                .collect(Collectors.toList());
+        String sortedStateCensusJson = new Gson().toJson(list);
+        return sortedStateCensusJson;
+    }
 
     public enum Country {
         INDIA, USA

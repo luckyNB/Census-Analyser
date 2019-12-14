@@ -12,7 +12,7 @@ public class USCensusAdapter extends CensusAdapter {
     }
 
     @Override
-    public Map<String, CensusDAO> loadingCensusData(CensusAnalyser.Country country, String... csvFilePath) throws CensusAnalyserException {
+    public Map<String, CensusDAO> loadingCensusData(String... csvFilePath) throws CensusAnalyserException {
         censusDAOMap = super.loadCensusData(USCensusData.class, csvFilePath[0]);
         return censusDAOMap;
     }
