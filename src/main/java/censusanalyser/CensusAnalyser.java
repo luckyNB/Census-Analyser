@@ -1,6 +1,8 @@
 package censusanalyser;
 
 
+import censusanalyser.adapter.AdapterFactory;
+import censusanalyser.adapter.CensusAdapter;
 import com.google.gson.Gson;
 
 import java.util.*;
@@ -13,7 +15,9 @@ public class CensusAnalyser {
     Map<String, CensusDAO> censusMap;
     Map<FieldName, Comparator> comparatorMap = null;
     Comparator<CensusDAO> censusCSVComparator = null;
-
+    public enum Country {
+        INDIA, USA
+    }
     public CensusAnalyser() {
         this.censusMap = new HashMap<>();
         comparatorMap = new HashMap<>();
@@ -26,7 +30,6 @@ public class CensusAnalyser {
     public Map<String, CensusDAO> loadCensusData(Country country, String... csvFilePath) throws CensusAnalyserException {
         CensusAdapter censusAdapter = AdapterFactory.getAdapterObject(country);
         censusMap = censusAdapter.loadingCensusData(csvFilePath);
-
         return censusMap;
     }
 
@@ -54,7 +57,5 @@ public class CensusAnalyser {
         return sortedStateCensusJson;
     }
 
-    public enum Country {
-        INDIA, USA
-    }
+
 }

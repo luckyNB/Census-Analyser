@@ -1,4 +1,6 @@
-package censusanalyser;
+package censusanalyser.adapter;
+
+import censusanalyser.CensusAnalyser;
 
 public class AdapterFactory {
     public static <E extends CensusAdapter> E getAdapterObject(CensusAnalyser.Country country) {

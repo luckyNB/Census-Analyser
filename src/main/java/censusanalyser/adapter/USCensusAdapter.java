@@ -1,10 +1,13 @@
-package censusanalyser;
+package censusanalyser.adapter;
+
+import censusanalyser.CensusAnalyserException;
+import censusanalyser.CensusDAO;
+import censusanalyser.USCensusData;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class USCensusAdapter extends CensusAdapter {
-
     Map<String, CensusDAO> censusDAOMap = null;
 
     public USCensusAdapter() {

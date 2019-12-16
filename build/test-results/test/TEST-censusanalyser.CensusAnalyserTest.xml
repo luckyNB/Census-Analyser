@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="censusanalyser.CensusAnalyserTest" tests="24" skipped="0" failures="0" errors="0" timestamp="2019-12-14T05:57:37" hostname="admin1-desktop" time="1.93">
+<testsuite name="censusanalyser.CensusAnalyserTest" tests="1" skipped="1" failures="0" errors="0" timestamp="2019-12-14T05:38:52" hostname="admin1-desktop" time="3632.672">
   <properties/>
-  <testcase name="givenUSCensusData_WhenSortedByPopulation_ThenCalifornia_ShouldLastState" classname="censusanalyser.CensusAnalyserTest" time="0.362"/>
-  <testcase name="givenUSCensusData_WhenSortedByArea_Then_Alaska_ShouldBeLastState" classname="censusanalyser.CensusAnalyserTest" time="0.177"/>
-  <testcase name="givenUSCensusData_WhenSortedByStateName_ThenWyoming_ShouldLastState" classname="censusanalyser.CensusAnalyserTest" time="0.152"/>
-  <testcase name="givenStateCensusCSVData_WhenSortedByPopulation_ThenUttarPradesh_ShouldBe_LastState" classname="censusanalyser.CensusAnalyserTest" time="0.065"/>
-  <testcase name="givenUSCensusData_WhenSortedByArea_Then_District_of_Columbia_ShouldBeFirstState" classname="censusanalyser.CensusAnalyserTest" time="0.14"/>
-  <testcase name="givenUSCensusData_WhenSortedByDensity_ThenAlaska_ShouldBeFirstState" classname="censusanalyser.CensusAnalyserTest" time="0.15"/>
-  <testcase name="givenUSCensusData_WhenSortedByStateName_ThenAlabama_ShouldFirstState" classname="censusanalyser.CensusAnalyserTest" time="0.14"/>
-  <testcase name="givenIndianCensusData_SortedByPopulationAndDensity_Should_ReturnSortedListOfStateOfIndia" classname="censusanalyser.CensusAnalyserTest" time="0.068"/>
-  <testcase name="givenStateCensusCSVData_WhenSortedByPopulation_ThenSikkim_ShouldBe_FirstState" classname="censusanalyser.CensusAnalyserTest" time="0.066"/>
-  <testcase name="givenStateCensusCSVData_WhenSortedByArea_Then_Goa_ShouldBe_FirstState" classname="censusanalyser.CensusAnalyserTest" time="0.064"/>
-  <testcase name="givenStateCensusData_ShouldReturn_NoOfRecord" classname="censusanalyser.CensusAnalyserTest" time="0.04"/>
-  <testcase name="givenUSCensusData_WhenIncorrectDelimeter_Then_Should_ThrowCensusAnalyserException" classname="censusanalyser.CensusAnalyserTest" time="0.002"/>
-  <testcase name="givenUSCensusData_WhenCorrect_Should_ReturnValidNumberOfRecords" classname="censusanalyser.CensusAnalyserTest" time="0.092"/>
-  <testcase name="givenStateCensusCSVData_WhenSortedByDensity_ThenBihar_ShouldBe_LastState" classname="censusanalyser.CensusAnalyserTest" time="0.049"/>
-  <testcase name="givenUSCensusData_WhenSortedByPopulation_ThenWyoming_ShouldFirstState" classname="censusanalyser.CensusAnalyserTest" time="0.093"/>
-  <testcase name="givenStateCensusCSVData_WhenSortedByArea_Then_Rajasthan_ShouldBe_LastState" classname="censusanalyser.CensusAnalyserTest" time="0.041"/>
-  <testcase name="givenStateCensusCSVData_WhenSortedByDensity_ThenArunachal_Pradesh_ShouldBe_FirstState" classname="censusanalyser.CensusAnalyserTest" time="0.031"/>
-  <testcase name="givenStateCensusData_WhenWrongDelimeter_ThenShould_ThrowCensusAnalyserException" classname="censusanalyser.CensusAnalyserTest" time="0.021"/>
-  <testcase name="givenUSCensusData_WhenSortedByDensity_ThenDistrict_of_Columbia_ShouldBeLastState" classname="censusanalyser.CensusAnalyserTest" time="0.059"/>
-  <testcase name="givenStateCensusCSVData_WhenSortedByStateName_Then_AndhraPradesh_ShouldBe_FirstState" classname="censusanalyser.CensusAnalyserTest" time="0.026"/>
-  <testcase name="givenUSCensusData_SortedByPopulationAndDensity_ShouldReturnReturnSortedListOfStateOfUS" classname="censusanalyser.CensusAnalyserTest" time="0.057"/>
-  <testcase name="givenUSCensusData_WhenWrongHeader_ThenShould_ThrowCensusAnalyserException" classname="censusanalyser.CensusAnalyserTest" time="0.001"/>
-  <testcase name="givenStateCensusCSVData_WhenSortedByStateName_Then_WestBengal_ShouldBe_LastState" classname="censusanalyser.CensusAnalyserTest" time="0.025"/>
-  <testcase name="givenStateCensusData_WhenWrongFileType_ThenShould_ThrowCensusAnalyserException" classname="censusanalyser.CensusAnalyserTest" time="0.001"/>
+  <testcase name="givenIndianCensusData_SortedByPopulationAndDensity_Should_ReturnSortedListOfState" classname="censusanalyser.CensusAnalyserTest" time="3632.672">
+    <skipped/>
+  </testcase>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

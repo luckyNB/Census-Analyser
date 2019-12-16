@@ -1,5 +1,8 @@
 package censusanalyser;
 
+import censusanalyser.adapter.AdapterFactory;
+import censusanalyser.adapter.IndiaCensusAdapter;
+import censusanalyser.adapter.USCensusAdapter;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
